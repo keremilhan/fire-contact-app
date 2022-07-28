@@ -11,10 +11,10 @@ import {
   Select,
   Box,
 } from "@mui/material";
-import { AccountCircle, InfoSharp } from "@mui/icons-material";
+import { AccountCircle} from "@mui/icons-material";
 import PhoneEnabledIcon from "@mui/icons-material/PhoneEnabled";
 
-const FormComponent = ({info, setInfo}) => {
+const FormComponent = ({info, setInfo, handleSubmit, isEditing}) => {
 
   const handleChange = (e) => {
     // const name = e.target.name;
@@ -47,7 +47,7 @@ const FormComponent = ({info, setInfo}) => {
       <h2 className="contact-header">Add Contact</h2>
     
       <Box style={{ backgroundColor: "white", padding: "20px" }}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <Stack spacing={3} direction="column">
             <TextField
               variant="outlined"
@@ -55,6 +55,7 @@ const FormComponent = ({info, setInfo}) => {
               value={info.username}
               onChange={handleChange}
               placeholder="Name"
+              required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -69,6 +70,7 @@ const FormComponent = ({info, setInfo}) => {
               value={info.phoneNumber}
               onChange={handleChange}
               placeholder="Phone Number"
+              required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -84,6 +86,7 @@ const FormComponent = ({info, setInfo}) => {
                 name="gender"
                 variant="outlined"
                 value={info.gender}
+                required
                 onChange={handleChange}
               >
                 <MenuItem value="Female">Female</MenuItem>
@@ -92,7 +95,9 @@ const FormComponent = ({info, setInfo}) => {
               </Select>
             </FormControl>
             <Button variant="contained" type="submit" value="Submit">
-              ADD
+              {
+                isEditing ? "UPDATE" : "ADD"
+              }
             </Button>
           </Stack>
         </form>
